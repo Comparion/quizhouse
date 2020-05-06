@@ -5,7 +5,7 @@ import java.net.*;
 import java.util.*;
 
 public class ThreadedEchoHandler implements Runnable {
-
+	int licznik=1;
 	private Socket incoming;
 
 	public ThreadedEchoHandler(Socket i) {
@@ -18,14 +18,26 @@ public class ThreadedEchoHandler implements Runnable {
 			OutputStream outStream = incoming.getOutputStream();
 			try {
 				Scanner in = new Scanner(inStream);
-				PrintWriter out = new PrintWriter(outStream, true /* autoFlush */);
+				PrintWriter out = new PrintWriter(outStream, true);
 				out.println("Hello!");
 				boolean done = false;
-				while (!done && in.hasNextLine()) {
-					String line = in.nextLine();
-					out.println("Twoja odpowiedz to: " + line + losowanie.wylosuj() );
-					if (line.trim().equals("BYE"))
-						done = true;
+				while (!done) {
+					if (server.i == 2) {
+						out.println("Pytanie "+licznik+" : "+ " "+ losowanie.wylosuj());
+						String line = in.nextLine();
+						out.println("Twoja odpowiedz to: " + line+ ". Jest to "+losowanie.sprawdz(line));
+						licznik++;
+						if (line.trim().equals("BYE"))
+							done = true;
+					} else {
+						out.println("Oczekiwanie na drugiego gracza....");
+						try {
+							Thread.sleep(2000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+
 				}
 				in.close();
 			} finally {
@@ -39,12 +51,3 @@ public class ThreadedEchoHandler implements Runnable {
 		}
 	}
 }
-
-/*
- * public void run() { Scanner sc=new Scanner(incoming.getInputStream());
- * number= sc.nextInt();
- * 
- * temp=number*2;
- * 
- * PrintStream p=new PrintStream(incoming.getOutputStream()); p.println(temp); }
- */
