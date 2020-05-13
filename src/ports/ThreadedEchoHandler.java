@@ -21,14 +21,28 @@ public class ThreadedEchoHandler implements Runnable {
 				PrintWriter out = new PrintWriter(outStream, true);
 				String line;
 				int czas;
+				int punkty=0;
+				String sprawdzenie;
+				String pytanie = null;
+				File file = new File("pytania/pyt.txt");
 				czasomierz t1= new czasomierz(incoming);
 				t1.start();
-				out.println("Polaczyles sie z graczem! Pamietaj aby tylko raz udzielac opdowiedzi na pytanie! Masz 10 s na kazde z nich. Powodzenia!");
+				out.println("Pamietaj aby tylko raz udzielac opdowiedzi na pytanie! Masz 10 s na kazde z nich. Powodzenia!");
 				boolean done = false;
 				while (!done) {
 					if (server.i == 2) {
+						Scanner plik = new Scanner(file);
 						czas=0;
-						out.println("Pytanie "+licznik+" : "+ " "+ losowanie.wylosuj());
+						int i,wylosowana;
+						wylosowana=losowanie.wylosuj();
+						pytanie=plik.nextLine();
+						for(i=0;i<wylosowana;i++)
+						{
+							pytanie=plik.nextLine();
+						}
+						if(licznik==1)
+							out.println("Polaczono z innym graczem");
+						out.println("Pytanie "+licznik+" : "  + pytanie);
 						while(czas<10)
 						{
 							try {
@@ -42,14 +56,26 @@ public class ThreadedEchoHandler implements Runnable {
 						{
 							out.println("Koniec czasu!");
 							licznik++;
+							if (licznik>5)
+							{
+								out.println("Twoj wynik wynosi : "+punkty);
+								done = true;
+								t1.done=true;
+							}	
 						}
 						else
 						{
 						line=t1.slowo;
 						licznik++;
-						out.println("Twoja odpowiedz to: " + line+ ". Jest to "+losowanie.sprawdz(line));
-						if (line.trim().equals("BYE"))
+						sprawdzenie=losowanie.sprawdz(line, wylosowana);
+						out.println("Twoja odpowiedz to: " + line+ ". Jest to "+sprawdzenie);
+						if(sprawdzenie.equals("poprawna odpowiedz!"))
 						{
+							punkty++;
+						}	
+						if (line.trim().equals("BYE")||licznik>5)
+						{
+							out.println("Twoj wynik wynosi : "+punkty);
 							done = true;
 							t1.done=true;
 						}	
