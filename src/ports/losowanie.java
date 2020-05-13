@@ -25,8 +25,8 @@ public class losowanie {
 	 static public String sprawdz(String zmienna)
 	 {
 		 if(zmienna.equals("jeden"))
-			 return "poprawna odpowiedz";
+			 return "poprawna odpowiedz!";
 		 else
-			 return "niepoprawna odpowiedz";
+			 return "niepoprawna odpowiedz!";
 	 }
 }
