@@ -7,8 +7,11 @@ import java.util.*;
 public class losowanie {
 	 static Random liczba = new Random(server.ziarno);
 	 static int b=1;
+	 static int lic=0;
 	 static int los, los2;
 	 static File file2 = new File("odpowiedzi/odp.txt");
+	 static int[] tablica=new int[10];
+	 static int nr_tab=0;
 	 static public int wylosuj()
 	 {
 		 if(b%2==0)
@@ -18,10 +21,31 @@ public class losowanie {
 		 }
 		 else
 		 {
-		 los = liczba.nextInt(10);
-		 los2 =los;
-		 b++;
-		 return los;
+			 boolean porf=false;
+			 int bufor=0, bufor2=0;
+			 while(!porf){
+				 los = liczba.nextInt(10); 
+				 do
+				 {
+					 if(tablica[bufor]==los)
+					 {
+						 porf=false;
+						 break;
+					 }
+						 else
+						 {
+							porf=true;
+						 }
+					 bufor++;
+				 }while(tablica[bufor]!=0);
+				 bufor=0;
+				
+			 }
+			 tablica[nr_tab]=los;
+			 nr_tab++;
+			 los2 =los;
+			 b++;
+			 return los;
 		 }
 	 }
 	 

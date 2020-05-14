@@ -22,6 +22,18 @@ public class ThreadedEchoHandler implements Runnable {
 		uzytkownik.u2_pot="nic";
 		
 	}
+	
+	public void czyszczenie_tablicy()
+	{
+		int i=0;
+		while(losowanie.tablica[i]!=0)
+		{
+			losowanie.tablica[i]=0;
+			i++;
+		}
+		losowanie.nr_tab=0;
+	}
+	
 
 	public void werdykt(PrintWriter out) {
 		out.println("Twoj wynik wynosi : " + punkty);
@@ -148,6 +160,8 @@ public class ThreadedEchoHandler implements Runnable {
 							}
 				
 						}
+						if(uzytkownik.u1_pot.equals("nie")||uzytkownik.u2_pot.equals("nie"))
+							continue;
 						out.println("Pytanie " + licznik + " : " + pytanie);
 						while (czas < 5) {
 							try {
@@ -173,6 +187,7 @@ public class ThreadedEchoHandler implements Runnable {
 								}
 								werdykt(out);
 								reset_potwierdzenia();
+								czyszczenie_tablicy();
 								out.println("Czy chcesz grac dalej? tak/nie");
 								done=game_continue(t1);
 								nr_rozgrywka++;
@@ -185,14 +200,13 @@ public class ThreadedEchoHandler implements Runnable {
 							out.println("Twoja odpowiedz to: " + line + ". Jest to " + sprawdzenie);
 							if (sprawdzenie.equals("poprawna odpowiedz!")) {
 								punkty++;
-								if (nazwa_usera.equals(uzytkownik.user1)) {
-									uzytkownik.u1_punk = punkty;
-									uzytkownik.u1_licz = licznik;
-								} else if (nazwa_usera.equals(uzytkownik.user2)) {
-									uzytkownik.u2_punk = punkty;
-									uzytkownik.u2_licz = licznik;
-								}
-
+							}
+							if (nazwa_usera.equals(uzytkownik.user1)) {
+								uzytkownik.u1_punk = punkty;
+								uzytkownik.u1_licz = licznik;
+							} else if (nazwa_usera.equals(uzytkownik.user2)) {
+								uzytkownik.u2_punk = punkty;
+								uzytkownik.u2_licz = licznik;
 							}
 							if (licznik > 5) {
 								while ((uzytkownik.u1_licz < 5 && uzytkownik.u2_licz < 5) && uzytkownik.u1_exit == false
@@ -202,6 +216,7 @@ public class ThreadedEchoHandler implements Runnable {
 								t1.slowo = "pusto";
 								werdykt(out);
 								reset_potwierdzenia();
+								czyszczenie_tablicy();
 								out.println("Czy chcesz grac dalej? tak/nie");
 								done=game_continue(t1);
 								nr_rozgrywka++;
