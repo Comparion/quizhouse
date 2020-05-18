@@ -10,7 +10,7 @@ public class server {
 	static int i=0;
 	public static void main(String[] args) throws IOException
 	{
-		ServerSocket s1 = new ServerSocket(1365);
+		ServerSocket s1 = new ServerSocket(1364);
 		try
 		{
 			

@@ -7,13 +7,14 @@ import java.util.*;
 public class losowanie {
 	 static Random liczba = new Random(server.ziarno);
 	 static int b=1;
-	 static int lic=0;
 	 static int los, los2;
 	 static File file2 = new File("odpowiedzi/odp.txt");
 	 static int[] tablica=new int[10];
 	 static int nr_tab=0;
 	 static public int wylosuj()
 	 {
+		 if(uzytkownik.wybor==1)
+		 {
 		 if(b%2==0)
 		 {
 			 b++;
@@ -22,9 +23,47 @@ public class losowanie {
 		 else
 		 {
 			 boolean porf=false;
-			 int bufor=0, bufor2=0;
+			 int bufor=0;
 			 while(!porf){
-				 los = liczba.nextInt(10); 
+				 los = liczba.nextInt(10)+1; 
+				 bufor=0;
+				 do
+				 {
+					 if(tablica[bufor]==los)
+					 {
+						 porf=false;
+						 break;
+					 }
+						 else
+						 {
+							porf=true;
+						 }
+					 bufor++;
+				 }while(tablica[bufor]!=0);
+				 
+				
+			 }
+			 
+			 tablica[nr_tab]=los;
+			 nr_tab++;
+			 los2 =los;
+			 b++;
+			 
+		 }
+		 }
+		 if(uzytkownik.wybor==2)
+		 {
+		 if(b%2==0)
+		 {
+			 b++;
+			 return los2;
+		 }
+		 else
+		 {
+			 boolean porf=false;
+			 int bufor=0;
+			 while(!porf){
+				 los = liczba.nextInt(10)+11; 
 				 do
 				 {
 					 if(tablica[bufor]==los)
@@ -41,12 +80,52 @@ public class losowanie {
 				 bufor=0;
 				
 			 }
+			 
 			 tablica[nr_tab]=los;
 			 nr_tab++;
 			 los2 =los;
 			 b++;
-			 return los;
+			 
 		 }
+		 }
+		 if(uzytkownik.wybor==3)
+		 {
+		 if(b%2==0)
+		 {
+			 b++;
+			 return los2;
+		 }
+		 else
+		 {
+			 boolean porf=false;
+			 int bufor=0;
+			 while(!porf){
+				 los = liczba.nextInt(10)+21; 
+				 do
+				 {
+					 if(tablica[bufor]==los)
+					 {
+						 porf=false;
+						 break;
+					 }
+						 else
+						 {
+							porf=true;
+						 }
+					 bufor++;
+				 }while(tablica[bufor]!=0);
+				 bufor=0;
+				
+			 }
+			 
+			 tablica[nr_tab]=los;
+			 nr_tab++;
+			 los2 =los;
+			 b++;
+			 
+		 }
+		 }
+		 return los;
 	 }
 	 
 	 static public String sprawdz(String zmienna, int wylosowana)
@@ -59,7 +138,7 @@ public class losowanie {
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		 for(i=0;i<wylosowana+1;i++)
+		 for(i=0;i<wylosowana;i++)
 			{
 				odpowiedz=plik.nextLine();
 			}

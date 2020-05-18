@@ -12,7 +12,7 @@ public class client {
 	{
 		String napis = "test", temp;
 		Scanner sc = new Scanner(System.in);
-		Socket s = new Socket("127.0.0.1",1365);
+		Socket s = new Socket("127.0.0.1",1364);
 		Scanner sc1= new Scanner (s.getInputStream());
 		while(!napis.equals("BYE"))
 		{

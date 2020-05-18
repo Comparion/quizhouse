@@ -7,6 +7,7 @@ import java.util.*;
 public class ThreadedEchoHandler implements Runnable {
 	int licznik = 1;
 	int punkty = 0;
+	int choose=0;
 	int nr_rozgrywka=0;
 	static int wskaznik = 0;
 	String nazwa_usera;
@@ -32,6 +33,11 @@ public class ThreadedEchoHandler implements Runnable {
 			i++;
 		}
 		losowanie.nr_tab=0;
+		uzytkownik.potwierdzenie=false;
+		uzytkownik.temat1="pusto";
+		uzytkownik.temat2="pusto";
+		uzytkownik.u1_wynik = false;
+		uzytkownik.u2_wynik = false;
 	}
 	
 
@@ -45,7 +51,7 @@ public class ThreadedEchoHandler implements Runnable {
 			else
 				out.println("PRZEGRALES!!!");
 			out.println("Wynik twojego przeciwnika: " + uzytkownik.user2 + " wynosi : " + uzytkownik.u2_punk);
-
+			uzytkownik.temat1="pusto";
 		} else if (nazwa_usera.equals(uzytkownik.user2)) {
 			if (punkty > uzytkownik.u1_punk)
 				out.println("WYGRALES!!!");
@@ -54,6 +60,7 @@ public class ThreadedEchoHandler implements Runnable {
 			else
 				out.println("PRZEGRALES!!!");
 			out.println("Wynik twojego przeciwnika: " + uzytkownik.user1 + " wynosi : " + uzytkownik.u1_punk);
+			uzytkownik.temat2="pusto";
 		}
 	}
 	
@@ -82,6 +89,30 @@ public class ThreadedEchoHandler implements Runnable {
 		}
 		return done;
 	}
+	
+	public int wybor_kategorii(czasomierz t1)
+	{
+		int tem=1;
+		while(t1.slowo == "pusto")
+		{
+			uspij.spij();
+		}
+		if(t1.slowo.equals("2"))
+		{
+		tem=2;
+		}
+		else if(t1.slowo.equals("3"))
+		{
+		tem =3;
+		}
+		if (nazwa_usera.equals(uzytkownik.user1)) {
+			uzytkownik.temat1=t1.slowo;
+		} else if (nazwa_usera.equals(uzytkownik.user2)) {
+			uzytkownik.temat2=t1.slowo;
+		}
+		return tem;
+	}
+	
 
 	public void run() {
 		try {
@@ -111,57 +142,98 @@ public class ThreadedEchoHandler implements Runnable {
 				}
 				boolean done = false;
 				t1.start();
-				while (!done) {
+				while (uzytkownik.user1 == null || uzytkownik.user2 == null) {
+					out.println("Drugi gracz wpisuje nazwe uzytkownika, badz cierpliwy!");
+					uspij.spij();
+				}
+				if (nazwa_usera.equals(uzytkownik.user1)) {
+					out.println("Polaczono z graczem " + uzytkownik.user2);
+				} else if (nazwa_usera.equals(uzytkownik.user2)) {
+					out.println("Polaczono z graczem " + uzytkownik.user1);
+				}
+				glowna:
+				while (!done&&uzytkownik.koniec==false) {
 					if (server.i == 2) {
 						Scanner plik = new Scanner(file);
 						czas = 0;
+						int timer=0;
 						int i, wylosowana;
-						wylosowana = losowanie.wylosuj();
-						pytanie = plik.nextLine();
-						for (i = 0; i < wylosowana; i++) {
-							pytanie = plik.nextLine();
-						}
 						if (licznik == 1) {
-
-							while (uzytkownik.user1 == null || uzytkownik.user2 == null) {
-								out.println("Drugi gracz wpisuje nazwe uzytkownika, badz cierpliwy!");
-								uspij.spij();
-							}
-							if (nazwa_usera.equals(uzytkownik.user1)) {
-								out.println("Polaczono z graczem " + uzytkownik.user2);
-							} else if (nazwa_usera.equals(uzytkownik.user2)) {
-								out.println("Polaczono z graczem " + uzytkownik.user1);
-							}
 							if(nr_rozgrywka>0)
 							{
 							if (nazwa_usera.equals(uzytkownik.user1)) {
 								while(!uzytkownik.u2_pot.equals("tak"))
 								{
 									out.println("Drugi gracz nie potwierdzil jeszcze dalszej rozgrywki!");
-									if(uzytkownik.u2_pot.equals("nie"))
+									if(uzytkownik.u2_pot.equals("nie")||timer>10)
 									{
+										out.println("Koniec rozgrywki!");
 										done=true;
-										break;
+										continue glowna;
 									}
+									timer++;
 									uspij.spij();
 								}
 							} else if (nazwa_usera.equals(uzytkownik.user2)) {
 								while(!uzytkownik.u1_pot.equals("tak"))
 								{
 									out.println("Drugi gracz nie potwierdzil jeszcze dalszej rozgrywki!");
-									if(uzytkownik.u1_pot.equals("nie"))
+									if(uzytkownik.u1_pot.equals("nie")||timer>10)
 									{
+										out.println("Koniec rozgrywki!");
 										done=true;
-										break;
+										continue glowna;
 									}
+									timer++;
 									uspij.spij();
 								}
 							}
 							}
-				
+							t1.slowo="pusto";
+							if (nazwa_usera.equals(uzytkownik.user1)&&nr_rozgrywka%2==0)
+							{
+								
+								out.println("Wybierz kategorie pytan!");
+								out.println("1.Koty 2.Psy 3.Konie / Wybierz liczbe");
+								choose=wybor_kategorii(t1);
+								uzytkownik.wybor=choose;
+								out.println("Wybrales: "+choose);
+								uzytkownik.potwierdzenie=true;
+								t1.slowo="pusto";
+							}
+							if (nazwa_usera.equals(uzytkownik.user2)&&nr_rozgrywka%2==1)
+							{
+								
+								out.println("Wybierz kategorie pytan!");
+								out.println("1.Koty 2.Psy 3.Konie / Wybierz liczbe");
+								choose=wybor_kategorii(t1);
+								uzytkownik.wybor=choose;
+								out.println("Wybrales: "+choose);
+								uzytkownik.potwierdzenie=true;
+								t1.slowo="pusto";
+							}
+								while(!uzytkownik.potwierdzenie)
+								{
+									if(timer>10)
+									{
+										out.println("Koniec rozgrywki!");
+										done=true;
+										continue glowna;
+									}
+									out.println("Drugi gracz wybiera kategorie.");
+									if(uzytkownik.u2_pot.equals("nie")||uzytkownik.u1_pot.equals("nie"))
+									{
+										done=true;
+										continue glowna;
+									}
+									uspij.spij();
+									timer++;
+								}
 						}
-						if(uzytkownik.u1_pot.equals("nie")||uzytkownik.u2_pot.equals("nie"))
-							continue;
+						wylosowana = losowanie.wylosuj();
+						for (i = 0; i < wylosowana; i++) {
+							pytanie = plik.nextLine();
+						}
 						out.println("Pytanie " + licznik + " : " + pytanie);
 						while (czas < 5) {
 							try {
@@ -180,6 +252,11 @@ public class ThreadedEchoHandler implements Runnable {
 								uzytkownik.u2_licz = licznik;
 							}
 							if (licznik > 5) {
+								if (nazwa_usera.equals(uzytkownik.user1)) {
+									uzytkownik.u1_wynik = true;
+								} else if (nazwa_usera.equals(uzytkownik.user2)) {
+									uzytkownik.u2_wynik = true;
+								}
 								while ((uzytkownik.u1_licz < 5 && uzytkownik.u2_licz < 5) && uzytkownik.u1_exit == false
 										&& uzytkownik.u2_exit == false) {
 									out.println("Oczekiwanie, az drugi gracz skonczy gre...");
@@ -209,8 +286,14 @@ public class ThreadedEchoHandler implements Runnable {
 								uzytkownik.u2_licz = licznik;
 							}
 							if (licznik > 5) {
+								if (nazwa_usera.equals(uzytkownik.user1)) {
+									uzytkownik.u1_wynik = true;
+								} else if (nazwa_usera.equals(uzytkownik.user2)) {
+									uzytkownik.u2_wynik = true;
+								}
 								while ((uzytkownik.u1_licz < 5 && uzytkownik.u2_licz < 5) && uzytkownik.u1_exit == false
 										&& uzytkownik.u2_exit == false) {
+									out.println("Oczekiwanie, az drugi gracz skonczy gre...");
 									uspij.spij();
 								}
 								t1.slowo = "pusto";
@@ -244,6 +327,7 @@ public class ThreadedEchoHandler implements Runnable {
 				}
 				in.close();
 			} finally {
+				uzytkownik.koniec=true;
 				inStream.close();
 				outStream.close();
 				incoming.close();
