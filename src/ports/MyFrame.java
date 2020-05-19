@@ -1,5 +1,6 @@
 package ports;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -93,7 +94,7 @@ class Rozgrywka extends JFrame implements ActionListener {
  		setTitle("QuizHouse");
  		setLayout(null);
  		setLocationRelativeTo(null);
- 		nick = new JLabel("nazwa: "+MyFrame.nazwa_u);
+ 		nick = new JLabel("twoja nazwa: "+MyFrame.nazwa_u);
  		nick.setBounds(0, 0, 120, 20);
  		add(nick);
  		powiadomienia = new JTextArea();
@@ -133,6 +134,7 @@ class Rozgrywka extends JFrame implements ActionListener {
  		add(buttonNIE);
  		buttonEXIT = new JButton("ZAKONCZ ROZGRYWKE");
  		buttonEXIT.setBounds(30, 460, 320, 40);
+ 		buttonEXIT.setForeground(Color.RED);
  		add(buttonEXIT);
  		buttonA.addActionListener(this);
  		buttonB.addActionListener(this);

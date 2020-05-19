@@ -93,7 +93,7 @@ public class ThreadedEchoHandler implements Runnable {
 	public int wybor_kategorii(czasomierz t1)
 	{
 		int tem=1;
-		while(t1.slowo == "pusto"||t1.slowo.equals("A"))
+		while(t1.slowo == "pusto")
 		{
 			uspij.spij();
 		}
@@ -130,9 +130,11 @@ public class ThreadedEchoHandler implements Runnable {
 				int czas;
 				String sprawdzenie;
 				String pytanie = null;
+				String odpowiedzi = null;
 				File file = new File("pytania/pyt.txt");
+				File file3 = new File("pytania/pyt2.txt");
 				czasomierz t1 = new czasomierz(incoming);
-				out.println("Masz 10 sekund na kazda odpowiedz. Powodzenia!");
+				out.println("Masz 10 sekund na kazda odpowiedz.Jedna runda to 5 pytan. Powodzenia!");
 				if (wskaznik == 0) {
 					wskaznik++;
 					nazwa_usera = in.nextLine();
@@ -143,19 +145,23 @@ public class ThreadedEchoHandler implements Runnable {
 				}
 				boolean done = false;
 				t1.start();
-				while (uzytkownik.user1 == null || uzytkownik.user2 == null) {
-					out.println("Drugi gracz wpisuje nazwe uzytkownika, badz cierpliwy!");
-					uspij.spij();
-				}
-				if (nazwa_usera.equals(uzytkownik.user1)) {
-					out.println("Polaczono z graczem " + uzytkownik.user2);
-				} else if (nazwa_usera.equals(uzytkownik.user2)) {
-					out.println("Polaczono z graczem " + uzytkownik.user1);
-				}
 				glowna:
 				while (!done&&uzytkownik.koniec==false) {
 					if (server.i == 2) {
+						while (uzytkownik.user1 == null || uzytkownik.user2 == null) {
+							out.println("Drugi gracz wpisuje nazwe uzytkownika, badz cierpliwy!");
+							uspij.spij();
+						}
+						if(nr_rozgrywka==0)
+						{
+							if (nazwa_usera.equals(uzytkownik.user1)) {
+								out.println("Polaczono z graczem " + uzytkownik.user2);
+							} else if (nazwa_usera.equals(uzytkownik.user2)) {
+								out.println("Polaczono z graczem " + uzytkownik.user1);
+							}
+						}
 						Scanner plik = new Scanner(file);
+						Scanner plik2 = new Scanner(file3);
 						czas = 0;
 						int timer=0;
 						int i, wylosowana;
@@ -195,7 +201,7 @@ public class ThreadedEchoHandler implements Runnable {
 							{
 								
 								out.println("Wybierz kategorie pytan!");
-								out.println("A-1.Koty B-2.Psy C-3.Konie D-4.Lamy / Wybierz litere");
+								out.println("A-1.Ogolna  B-2.Zwierzeta  C-3.Rosliny  D-4.Informatyka / Wybierz litere");
 								choose=wybor_kategorii(t1);
 								uzytkownik.wybor=choose;
 								out.println("Wybrales: "+choose);
@@ -206,7 +212,7 @@ public class ThreadedEchoHandler implements Runnable {
 							{
 								
 								out.println("Wybierz kategorie pytan!");
-								out.println("A-1.Koty B-2.Psy C-3.Konie D-4.Lamy / Wybierz litere");
+								out.println("A-1.Ogolna  B-2.Zwierzeta  C-3.Rosliny  D-4.Informatyka / Wybierz litere");
 								choose=wybor_kategorii(t1);
 								uzytkownik.wybor=choose;
 								out.println("Wybrales: "+choose);
@@ -234,9 +240,11 @@ public class ThreadedEchoHandler implements Runnable {
 						wylosowana = losowanie.wylosuj();
 						for (i = 0; i < wylosowana; i++) {
 							pytanie = plik.nextLine();
+							odpowiedzi = plik2.nextLine();
 						}
 						out.println("Pytanie " + licznik + " : " + pytanie);
-						while (czas < 5) {
+						out.println(odpowiedzi);
+						while (czas < 10) {
 							try {
 								Thread.sleep(1000);
 							} catch (InterruptedException e) {

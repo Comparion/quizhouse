@@ -1,0 +1,40 @@
+A-tecza  B-zorza polarna  C-luna  D-miraz
+A-Boruta  B-Rokita  C-Kusy  D-Bies
+A-Oginskiego  B-Mendelsona  C-Straussa  D-Dabrowskiego
+A-dukat  B-obol  C-talar  D-dinar
+A-tokaja  B-sake  C-rakija  D-alasz
+A-tapir  B-koala  C-mapla  D-panda
+A-decybel  B-wolt  C-wat  D-bor
+A-Atena  B-Afrodyta  C-Eutrepe  D-Hakate
+A-trojkatow  B-trapezow  C-prostokatow  D-rownoleglobokow
+A-fizyka  B-historia  C-filozofia  D-geografia
+A-Rys  B-Irbis  C-Zbik  D-Jenot
+A-Jelen  B-Daniel  C-Burunduk  D-Byk
+A-Ryb  B-Ptakow  C-Slimakow  D-Jaszczurek
+A-Hiene centkowa  B-Lampart  C-Lew  D-Gepard
+A-Bingo  B-Dingo  C-Kojot  D-Lis australijski
+A-sa zmiennocieplne  B-maja luski  C-sa jajorodne  D-maja piora
+A-tarpan  B-tarbant  C-kon dunajski  D-kon przewalskiego
+A-tyranozaur  B-brontozaur  C-zauroposejdon  D-gigantozaur
+A-swinka morksa  B-chomik olbrzymi  C-kapibara  D-szczur wedrowny
+A-tygzyk  B-katipo  C-topik  D-krzyzak
+A-jonowe   B-wodorowe   C-koordynacyjne   D-atomowe
+A-mniejszym stê¿eniu  B-wiêkszemu stê¿eniu oraz mniejszej zawartoœci wody  C-wiêkszym stê¿eniu  D-mniejszej zawartoœci wody 
+A-35-50%   B-70-95%   C-5-15%   D-40-85% 
+A-stê¿enie CO2  B-kohezja   C-geotropizm  D-meolopizm
+A-ABA  B-GA3  C-IAA  D-PAA
+A-AQP  B-wszytkie odpowiedzi s¹ poprawne  C-akwaporyny  D-brak dobrej odpowiedzi
+A-kapilarnoœci¹  B-plazmoliz¹  C-hydratacja  D-adhezja
+A-Hydrofobowoœæ  B-Transpiracja   C-Adhezja  D-Gutacja
+A-Osmozy   B-Dyfuzji  C-Przep³ywu masowego wody  D-wszytkie odpowiedzi s¹ poprawne
+A-potencja³ chemiczny wody   B-si³¹ ss¹ca  C-potencja³ imbibicyjny  D-pêcznienie
+A-firma komputerowa  B-system operacyjny  C-rodzaj myszki  D-rodzaj klawiatury
+A-nowoczesny komputer  B-format kompresji plikow  C-program do edycji teksu  D-program muzyczny
+A-Paint  B-Word  C-Gimp  D-McAfee
+A-partycja  B-hiperlacze  C-pasek zadan  D-pasek uzytkownika
+A-Onet  B-Demotywatory  C-YouTube  D-Focus
+A-muzycznych  B-graficznych  C-tekstowych  D-video
+A-dysk C  B-monitor  C-procesor  D-klawiatura
+A-wejscia  B-wyjscia  C-we/wy  D-brak poprawnej odpowiedzi
+A-Worda  B-Accessa  C-Painta  D-przegladarki
+A-przegladarka  B-skanerem  C-antuvirusem  D-wirusem
