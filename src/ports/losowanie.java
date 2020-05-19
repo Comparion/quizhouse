@@ -8,7 +8,7 @@ public class losowanie {
 	 static Random liczba = new Random(server.ziarno);
 	 static int b=1;
 	 static int los, los2;
-	 static File file2 = new File("odpowiedzi/odp.txt");
+	 static File file2 = new File("odpowiedzi/odp2.txt");
 	 static int[] tablica=new int[10];
 	 static int nr_tab=0;
 	 static public int wylosuj()
@@ -101,6 +101,43 @@ public class losowanie {
 			 int bufor=0;
 			 while(!porf){
 				 los = liczba.nextInt(10)+21; 
+				 do
+				 {
+					 if(tablica[bufor]==los)
+					 {
+						 porf=false;
+						 break;
+					 }
+						 else
+						 {
+							porf=true;
+						 }
+					 bufor++;
+				 }while(tablica[bufor]!=0);
+				 bufor=0;
+				
+			 }
+			 
+			 tablica[nr_tab]=los;
+			 nr_tab++;
+			 los2 =los;
+			 b++;
+			 
+		 }
+		 }
+		 if(uzytkownik.wybor==4)
+		 {
+		 if(b%2==0)
+		 {
+			 b++;
+			 return los2;
+		 }
+		 else
+		 {
+			 boolean porf=false;
+			 int bufor=0;
+			 while(!porf){
+				 los = liczba.nextInt(10)+31; 
 				 do
 				 {
 					 if(tablica[bufor]==los)

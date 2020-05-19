@@ -93,17 +93,21 @@ public class ThreadedEchoHandler implements Runnable {
 	public int wybor_kategorii(czasomierz t1)
 	{
 		int tem=1;
-		while(t1.slowo == "pusto")
+		while(t1.slowo == "pusto"||t1.slowo.equals("A"))
 		{
 			uspij.spij();
 		}
-		if(t1.slowo.equals("2"))
+		if(t1.slowo.equals("B"))
 		{
 		tem=2;
 		}
-		else if(t1.slowo.equals("3"))
+		else if(t1.slowo.equals("C"))
 		{
 		tem =3;
+		}
+		else if(t1.slowo.equals("D"))
+		{
+		tem =4;
 		}
 		if (nazwa_usera.equals(uzytkownik.user1)) {
 			uzytkownik.temat1=t1.slowo;
@@ -128,10 +132,7 @@ public class ThreadedEchoHandler implements Runnable {
 				String pytanie = null;
 				File file = new File("pytania/pyt.txt");
 				czasomierz t1 = new czasomierz(incoming);
-				out.println(
-						"Pamietaj aby tylko raz udzielac opdowiedzi na pytanie uzywajac tylko MALYCH liter! Masz 10 s na kazde z nich.");
-				out.println("Powodzenia!");
-				out.println("Podaj swoja nazwe bohaterze!");
+				out.println("Masz 10 sekund na kazda odpowiedz. Powodzenia!");
 				if (wskaznik == 0) {
 					wskaznik++;
 					nazwa_usera = in.nextLine();
@@ -194,7 +195,7 @@ public class ThreadedEchoHandler implements Runnable {
 							{
 								
 								out.println("Wybierz kategorie pytan!");
-								out.println("1.Koty 2.Psy 3.Konie / Wybierz liczbe");
+								out.println("A-1.Koty B-2.Psy C-3.Konie D-4.Lamy / Wybierz litere");
 								choose=wybor_kategorii(t1);
 								uzytkownik.wybor=choose;
 								out.println("Wybrales: "+choose);
@@ -205,7 +206,7 @@ public class ThreadedEchoHandler implements Runnable {
 							{
 								
 								out.println("Wybierz kategorie pytan!");
-								out.println("1.Koty 2.Psy 3.Konie / Wybierz liczbe");
+								out.println("A-1.Koty B-2.Psy C-3.Konie D-4.Lamy / Wybierz litere");
 								choose=wybor_kategorii(t1);
 								uzytkownik.wybor=choose;
 								out.println("Wybrales: "+choose);

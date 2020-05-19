@@ -8,25 +8,12 @@ import java.util.Scanner;
 
 
 public class client {
+	
+	public static String napis="test", temp;
+	
 	public static void main(String args[]) throws UnknownHostException, IOException
 	{
-		String napis = "test", temp;
-		Scanner sc = new Scanner(System.in);
-		Socket s = new Socket("127.0.0.1",1364);
-		Scanner sc1= new Scanner (s.getInputStream());
-		while(!napis.equals("BYE"))
-		{
-				temp=sc1.nextLine();
-				System.out.println(temp);
-				napis= sc.nextLine();
-				PrintStream p= new PrintStream(s.getOutputStream());
-				p.println(napis);
-			
+		MyFrame okienko=new MyFrame();
 		
-		
-		}
-		sc.close();
-		s.close();
-		sc1.close();
 	}
 }
