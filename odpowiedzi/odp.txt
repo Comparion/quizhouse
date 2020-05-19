@@ -34,7 +34,7 @@ A
 B
 C
 A
-A
 C
-A
 B
+B
+A

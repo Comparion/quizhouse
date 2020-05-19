@@ -1,4 +1,4 @@
-package ports;
+package klient;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -100,20 +100,13 @@ class Rozgrywka extends JFrame implements ActionListener {
  		powiadomienia = new JTextArea();
  		powiadomienia.setLineWrap(true);
  		powiadomienia.setWrapStyleWord(true);
- 		//powiadomienia.setBounds(30,30,330,300);
  		scrolPane =  new JScrollPane(powiadomienia);
  		scrolPane.setBounds(30,30,330,300);
  		DefaultCaret caret = (DefaultCaret)powiadomienia.getCaret(); 
  		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE); 
- 		//scrolPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-       // scrolPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        //scrolPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        //int max = scrolPane.getVerticalScrollBar().getMaximum();
-        //scrolPane.getVerticalScrollBar().setValue(max);
  		add(scrolPane);
  		JScrollBar vertical = scrolPane.getVerticalScrollBar();
  		vertical.setValue(vertical.getMaximum());      
- 		//add(powiadomienia);
  		buttonA = new JButton("A");
  		buttonA.setBounds(30, 360, 50, 40);
  		add(buttonA);
