@@ -1,4 +1,4 @@
-package ports;
+package serwer;
 
 public class uzytkownik {
 	public static String user1=null,user2=null;
