@@ -7,7 +7,7 @@ import java.net.UnknownHostException;
 import java.util.Scanner;
 
 
-public class client {
+public class Client {
 	
 	public static String napis="test", temp;
 	

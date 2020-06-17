@@ -4,8 +4,8 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 
-public class losowanie {
-	 static Random liczba = new Random(server.ziarno);
+public class Losowanie {
+	 static Random liczba = new Random(Server.ziarno);
 	 static int b=1;
 	 static int los, los2;
 	 static File file2 = new File("odpowiedzi/odp.txt");
@@ -49,19 +49,19 @@ public class losowanie {
 			 b++;
 			 return los2;
 		 }
-		 else if(uzytkownik.wybor==1)
+		 else if(Uzytkownik.wybor==1)
 		 {
 			 losuj(1);
 		 }
-		 else if(uzytkownik.wybor==2)
+		 else if(Uzytkownik.wybor==2)
 		 {
 			 losuj(11);
 		 }
-		 else if(uzytkownik.wybor==3)
+		 else if(Uzytkownik.wybor==3)
 		 {
 			 losuj(21);
 		 }
-		 else if(uzytkownik.wybor==4)
+		 else if(Uzytkownik.wybor==4)
 		 {
 			 losuj(31);
 		 }

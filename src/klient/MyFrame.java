@@ -31,13 +31,13 @@ public class MyFrame extends JFrame implements ActionListener {
 	public static Socket s;
 	public static Scanner sc1;
 	public static PrintStream p;
-	public pobieranie t1;
+	public Pobieranie t1;
  	public MyFrame() throws UnknownHostException, IOException {
  		
  		s = new Socket("127.0.0.1",1364);
  		sc1= new Scanner (s.getInputStream());
  		p= new PrintStream(s.getOutputStream());
- 		t1=new pobieranie();
+ 		t1=new Pobieranie();
  		setSize(350,200);
  		setTitle("QuizHouse: podaj nazwe");
  		setLayout(null);
@@ -78,30 +78,44 @@ public class MyFrame extends JFrame implements ActionListener {
 		Rozgrywka.powiadomienia.append(odebrane);
 		Rozgrywka.powiadomienia.append("\n");
 	}
+	
+	public static void odbierz_pytania(String odebrane) {
+		Rozgrywka.pytania.append(odebrane);
+		Rozgrywka.pytania.append("\n");
+	}
  }
 
 class Rozgrywka extends JFrame implements ActionListener {
 	
-	private JButton buttonA,buttonB,buttonC,buttonD;
-	private JButton buttonTAK, buttonNIE;
+	public static JButton buttonA,buttonB,buttonC,buttonD;
+	public static JButton buttonTAK;
+	public static JButton buttonNIE;
 	private JButton buttonEXIT;
-	public static JTextArea powiadomienia;
+	public static JTextArea powiadomienia, pytania;
 	private JScrollPane scrolPane;
-	private JLabel nick;
+	private JLabel nick, pyt;
 	
 	public Rozgrywka(JFrame owner){
-		setSize(400,600);
+		setSize(400,550);
  		setTitle("QuizHouse");
  		setLayout(null);
  		setLocationRelativeTo(null);
  		nick = new JLabel("twoja nazwa: "+MyFrame.nazwa_u);
  		nick.setBounds(0, 0, 120, 20);
  		add(nick);
+ 		pyt = new JLabel("Pytania:");
+ 		pyt.setBounds(30, 240, 120, 20);
+ 		add(pyt);
  		powiadomienia = new JTextArea();
  		powiadomienia.setLineWrap(true);
  		powiadomienia.setWrapStyleWord(true);
  		scrolPane =  new JScrollPane(powiadomienia);
- 		scrolPane.setBounds(30,30,330,300);
+ 		scrolPane.setBounds(30,30,330,200);
+ 		pytania = new JTextArea();
+ 		pytania.setLineWrap(true);
+ 		pytania.setWrapStyleWord(true);
+ 		pytania.setBounds(30,260,330,80);
+ 		add(pytania);
  		DefaultCaret caret = (DefaultCaret)powiadomienia.getCaret(); 
  		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE); 
  		add(scrolPane);
@@ -120,13 +134,13 @@ class Rozgrywka extends JFrame implements ActionListener {
  		buttonD.setBounds(300, 360, 50, 40);
  		add(buttonD);
  		buttonTAK = new JButton("TAK");
- 		buttonTAK.setBounds(30, 410, 140, 40);
+ 		buttonTAK.setBounds(30, 360, 140, 40);
  		add(buttonTAK);
  		buttonNIE = new JButton("NIE");
- 		buttonNIE.setBounds(210, 410, 140, 40);
+ 		buttonNIE.setBounds(210, 360, 140, 40);
  		add(buttonNIE);
  		buttonEXIT = new JButton("ZAKONCZ ROZGRYWKE");
- 		buttonEXIT.setBounds(30, 460, 320, 40);
+ 		buttonEXIT.setBounds(30, 410, 320, 40);
  		buttonEXIT.setForeground(Color.RED);
  		add(buttonEXIT);
  		buttonA.addActionListener(this);
@@ -138,6 +152,9 @@ class Rozgrywka extends JFrame implements ActionListener {
  		buttonEXIT.addActionListener(this);
  		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  		owner.setVisible(false);
+ 		Rozgrywka.buttonTAK.setVisible(false);
+		Rozgrywka.buttonNIE.setVisible(false);
+ 		
  		
 	}
 	
@@ -169,13 +186,49 @@ class Rozgrywka extends JFrame implements ActionListener {
 	}
 }
 
-class pobieranie extends Thread{
+class Pobieranie extends Thread{
 	String przy;
+	
+	public void zamien()
+	{
+		Rozgrywka.buttonTAK.setVisible(false);
+		Rozgrywka.buttonNIE.setVisible(false);
+		Rozgrywka.buttonA.setVisible(true);
+		Rozgrywka.buttonB.setVisible(true);
+		Rozgrywka.buttonC.setVisible(true);
+		Rozgrywka.buttonD.setVisible(true);
+	}
+	
 	public void run(){
 		while(true)
 		{
 			przy=MyFrame.sc1.nextLine();
-			MyFrame.odbierz(przy);
+			if(przy.contains("Wybierz litere")!=true&&przy.contains("Pytanie")) {
+				zamien();
+				Rozgrywka.pytania.setText("");
+				MyFrame.odbierz_pytania(przy);
+			}
+			else if(przy.contains("Wybierz litere")!=true&&((przy.contains("A")&&przy.contains("B")&&przy.contains("C")&&przy.contains("D"))))
+			{
+				zamien();
+				MyFrame.odbierz_pytania(przy);
+			}
+			else if(przy.contains("Czy chcesz grac dalej?"))
+			{
+				Rozgrywka.buttonA.setVisible(false);
+				Rozgrywka.buttonB.setVisible(false);
+				Rozgrywka.buttonC.setVisible(false);
+				Rozgrywka.buttonD.setVisible(false);
+				Rozgrywka.buttonTAK.setVisible(true);
+				Rozgrywka.buttonNIE.setVisible(true);
+				MyFrame.odbierz(przy);
+			}
+			else
+			{
+				zamien();
+				MyFrame.odbierz(przy);
+			}
+			
 		}
 	}
 }

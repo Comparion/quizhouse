@@ -1,6 +1,6 @@
 package serwer;
 
-public class uzytkownik {
+public class Uzytkownik {
 	public static String user1=null,user2=null;
 	public static String u1_pot="nic",u2_pot="nic";
 	public static String temat1="pusto", temat2="pusto";
